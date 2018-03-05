@@ -1,4 +1,5 @@
 package arrayIndexList;
+import java.lang.reflect.Array;
 
 import indexList.IndexList;
 
@@ -60,7 +61,7 @@ public class ArrayIndexList<E> implements IndexList<E> {
 		
 		E trash= element[index];
 		if(index>element.length|| index<0)throw new IndexOutOfBoundsException();
-		moveDataOnePositionTL(index+1,size);
+		moveDataOnePositionTL(index+1,size-1);
 		//element[size]=null;
 		
 		if(element.length-size>=MAXEMPTYPOS&& isEmpty()==false) {
@@ -121,15 +122,36 @@ public class ArrayIndexList<E> implements IndexList<E> {
 
 	// The following two methods are to be implemented as part of an exercise
 	public Object[] toArray() {
-		// TODO es in Exercise 3
-		return null;
+		Object[] array = new Object[this.size()]; 
+	  
+	    for(int i =0;i<array.length;i++) {
+	    	array[i]=element[i];
+	    }
+	    
+	    return array;
 	}
 
 
 	@Override
 	public <T1> T1[] toArray(T1[] array) {
-		// TODO as in Exercise 3
-		return null;
+		if (array.length < this.size()) { 
+	        // if arr.length < this.size, allocate a new array of the same 
+	    	// type as arr (components of the new array are set to be of equal
+	    	// runtime type as components of the original array arr) 
+	    	// and big enough to hold all the elements in this set. For 
+	    	// this, we need to use the Array class....
+			array = (T1[]) Array.newInstance(array.getClass().getComponentType(), this.size());
+	    } else if (array.length > this.size()) 
+	    	// Set to null all those positions of arr that won't be used. 
+	    	for (int j=this.size(); j< array.length; j++) 
+	    		array[j] = null;
+	    
+	    
+	    for(int i =0;i<size;i++) {
+	    	array[i] = (T1) element[i]; }  // It is assumed E can be casted to T
+	        
+	    
+	    return array;	
 	}
 
 
