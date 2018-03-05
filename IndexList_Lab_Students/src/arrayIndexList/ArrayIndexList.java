@@ -61,7 +61,7 @@ public class ArrayIndexList<E> implements IndexList<E> {
 		E trash= element[index];
 		if(index>element.length|| index<0)throw new IndexOutOfBoundsException();
 		moveDataOnePositionTL(index+1,size);
-		element[size]=null;
+		//element[size]=null;
 		
 		if(element.length-size>=MAXEMPTYPOS&& isEmpty()==false) {
 		changeCapacity(-CAPTOAR);}
