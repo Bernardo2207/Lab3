@@ -19,14 +19,19 @@ public class ArrayIndexList<E> implements IndexList<E> {
 		
 		// ADD CODE AS REQUESTED BY EXERCISES
 		if(size==element.length){changeCapacity(CAPTOAR);}
-		if(index>element.length)throw new IndexOutOfBoundsException();
+		if(index>element.length|| index<0)throw new IndexOutOfBoundsException("invalid index:"+index);
+		if(element[index]!=null) {if(size+1>=element.length) {changeCapacity(CAPTOAR);}moveDataOnePositionTR(index,size);}
+		element[index]=e;
 		size=size+1;
 	}
 
 
 	public void add(E e) {
 		// ADD CODE AS REQUESTED BY EXERCISES
+		
 		if(size==element.length){changeCapacity(CAPTOAR);}
+//		element[size]=e;
+//		size=size+1;
 		for(int i=0;i<element.length;i++){
 			if(element[i]==null){element[i]=e;
 			size=size+1;
@@ -40,7 +45,7 @@ public class ArrayIndexList<E> implements IndexList<E> {
 
 	public E get(int index) throws IndexOutOfBoundsException {
 		// ADD AND MODIGY CODE AS REQUESTED BY EXERCISES
-		if(index>element.length)throw new IndexOutOfBoundsException();
+		if(index>element.length|| index<0)throw new IndexOutOfBoundsException();
 		
 		return element[index]; 
 	}
@@ -53,18 +58,24 @@ public class ArrayIndexList<E> implements IndexList<E> {
 
 	public E remove(int index) throws IndexOutOfBoundsException {
 		
-		
-		if(index>element.length)throw new IndexOutOfBoundsException();
-		size=size-1;
+		E trash= element[index];
+		if(index>element.length|| index<0)throw new IndexOutOfBoundsException();
+		moveDataOnePositionTL(index+1,size);
+		element[size]=null;
+		if(isEmpty()==false) {
+		size=size-1;}
+		if(element.length-size>=MAXEMPTYPOS&& isEmpty()==false) {
+		changeCapacity(-CAPTOAR);}
 		// ADD AND MODIFY CODE AS REQUESTED BY EXERCISES
-		return null;
+		return trash;
 	}
 
 
 	public E set(int index, E e) throws IndexOutOfBoundsException {
 		// ADD AND MODIFY CODE AS REQUESTED BY EXERCISES
-		if(index>element.length)throw new IndexOutOfBoundsException();
-		return null;
+		if(index>element.length|| index<0)throw new IndexOutOfBoundsException();
+		element[index]=e;
+		return element[index];
 	}
 
 
