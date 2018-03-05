@@ -3,9 +3,9 @@ package arrayIndexList;
 import indexList.IndexList;
 
 public class ArrayIndexList<E> implements IndexList<E> {
-	private static final int INITCAP = 5; 
-	private static final int CAPTOAR = 5; 
-	private static final int MAXEMPTYPOS = 10; 
+	private static final int INITCAP = 1; 
+	private static final int CAPTOAR = 1; 
+	private static final int MAXEMPTYPOS = 2; 
 	private E[] element; 
 	private int size; 
 
@@ -62,10 +62,11 @@ public class ArrayIndexList<E> implements IndexList<E> {
 		if(index>element.length|| index<0)throw new IndexOutOfBoundsException();
 		moveDataOnePositionTL(index+1,size);
 		element[size]=null;
-		if(isEmpty()==false) {
-		size=size-1;}
+		
 		if(element.length-size>=MAXEMPTYPOS&& isEmpty()==false) {
 		changeCapacity(-CAPTOAR);}
+		if(isEmpty()==false) {
+			size=size-1;}
 		// ADD AND MODIFY CODE AS REQUESTED BY EXERCISES
 		return trash;
 	}
@@ -129,6 +130,13 @@ public class ArrayIndexList<E> implements IndexList<E> {
 	public <T1> T1[] toArray(T1[] array) {
 		// TODO as in Exercise 3
 		return null;
+	}
+
+
+	@Override
+	public int capacity() {
+		return element.length; 
+
 	}
 
 }
